@@ -1,0 +1,109 @@
+// Flex Block scheduling app data model.
+// SQLite file database — no separate DB server to run or configure.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum SessionStatus {
+  OPEN
+  CLOSED
+  CANCELLED
+}
+
+enum BookingStatus {
+  BOOKED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+
+  // Sessions this user hosts (only meaningful for TEACHER/ADMIN accounts)
+  hostedSessions FlexSession[] @relation("SessionHost")
+
+  bookings           Booking[]         @relation("StudentBookings")
+  attendanceMarkedBy Attendance[]      @relation("AttendanceMarker")
+  bookingsAssignedBy Booking[]         @relation("BookingAssignedBy")
+}
+
+// A single offering during a Flex block on a given date.
+// e.g. "Algebra help with Ms. Rivera" on 2026-09-15, room 204, capacity 20.
+model FlexSession {
+  id          String        @id @default(cuid())
+  title       String
+  description String        @default("")
+  date        String // ISO date, "YYYY-MM-DD" — one Flex block per calendar day
+  startTime   String // "HH:mm", 24h
+  endTime     String // "HH:mm", 24h
+  room        String  @default("")
+  capacity    Int     @default(20)
+  mandatory   Boolean @default(false) // admin-designated required session (e.g. mandatory intervention)
+  status      SessionStatus @default(OPEN)
+
+  hostId String
+  host   User   @relation("SessionHost", fields: [hostId], references: [id])
+
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+  @@index([hostId])
+}
+
+// A student's reservation into one session. A student may hold at most one
+// active (BOOKED) booking per calendar date — enforced by the unique index
+// below alongside application-level checks.
+model Booking {
+  id     String        @id @default(cuid())
+  status BookingStatus @default(BOOKED)
+  date   String // denormalized from FlexSession.date, enables the one-per-day constraint
+
+  sessionId String
+  session   FlexSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   User   @relation("StudentBookings", fields: [studentId], references: [id])
+
+  // set when an admin force-assigned this booking rather than the student self-booking
+  assignedById String?
+  assignedBy   User?   @relation("BookingAssignedBy", fields: [assignedById], references: [id])
+
+  attendance Attendance?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sessionId])
+  @@index([studentId, date])
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  present   Boolean
+  markedAt  DateTime @default(now())
+
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  markedById String
+  markedBy   User   @relation("AttendanceMarker", fields: [markedById], references: [id])
+}
