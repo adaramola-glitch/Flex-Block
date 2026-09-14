@@ -13,6 +13,7 @@ const navLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/admin", label: "All sessions" },
     { href: "/admin/unbooked", label: "Not signed up" },
     { href: "/admin/users", label: "People" },
+    { href: "/admin/import", label: "Import roster" },
     { href: "/admin/reports", label: "Reports" },
   ],
 };

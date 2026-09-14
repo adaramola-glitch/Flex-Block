@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { db } from "@/lib/db";
 import { requireRole } from "@/lib/require-role";
 import { Card } from "@/components/ui/card";
@@ -13,8 +14,13 @@ export default async function AdminUsersPage() {
       <div>
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">People</h1>
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Everyone who has signed in, and their role. New sign-ins default to Student. Add a
-          student&apos;s ID number and grade so they show up on rosters and the sign-up list.
+          Everyone who has signed in or been imported, and their role. New sign-ins default to
+          Student. Add a student&apos;s ID number and grade so they show up on rosters and the
+          sign-up list, or{" "}
+          <Link href="/admin/import" className="font-medium text-purple-700 hover:underline dark:text-purple-400">
+            import a whole roster at once
+          </Link>
+          .
         </p>
       </div>
 
