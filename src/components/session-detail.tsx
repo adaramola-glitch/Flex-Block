@@ -98,9 +98,15 @@ export async function SessionDetail({
                 <div>
                   <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                     {booking.student.name ?? booking.student.email}
+                    {booking.student.grade ? (
+                      <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">
+                        Grade {booking.student.grade}
+                      </span>
+                    ) : null}
                   </p>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
                     {booking.student.email}
+                    {booking.student.studentId ? ` · ID ${booking.student.studentId}` : ""}
                     {booking.assignedById ? " · assigned by admin" : ""}
                   </p>
                 </div>

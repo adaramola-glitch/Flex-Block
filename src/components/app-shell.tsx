@@ -11,6 +11,7 @@ const navLinks: Record<string, { href: string; label: string }[]> = {
   TEACHER: [{ href: "/teacher", label: "My sessions" }],
   ADMIN: [
     { href: "/admin", label: "All sessions" },
+    { href: "/admin/unbooked", label: "Not signed up" },
     { href: "/admin/users", label: "People" },
     { href: "/admin/reports", label: "Reports" },
   ],
@@ -28,18 +29,22 @@ export function AppShell({
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <header className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+      <header className="border-b-2 border-purple-700 bg-white dark:bg-slate-900">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-6">
-            <Link href="/" className="text-lg font-semibold text-slate-900 dark:text-slate-50">
-              Flex Block
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-50"
+            >
+              <span className="h-2.5 w-2.5 rounded-full bg-purple-700" />
+              DVC Flex Block
             </Link>
             <nav className="flex items-center gap-4">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+                  className="text-sm font-medium text-slate-600 hover:text-purple-700 dark:text-slate-400 dark:hover:text-purple-400"
                 >
                   {link.label}
                 </Link>

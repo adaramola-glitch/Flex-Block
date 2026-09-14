@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flex Block",
+  title: "DVC Flex Block",
   description: "Da Vinci Schools Flex Block scheduling",
 };
 

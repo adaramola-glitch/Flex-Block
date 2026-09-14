@@ -52,22 +52,25 @@ async function main() {
   });
 
   const students = [];
-  const studentNames = [
-    "Ava Thompson",
-    "Noah Martinez",
-    "Mia Chen",
-    "Liam Patel",
-    "Zoe Johnson",
-    "Ethan Garcia",
+  const studentInfo = [
+    { name: "Ava Thompson", studentId: "100234", grade: 11 },
+    { name: "Noah Martinez", studentId: "100235", grade: 9 },
+    { name: "Mia Chen", studentId: "100236", grade: 10 },
+    { name: "Liam Patel", studentId: "100237", grade: 12 },
+    { name: "Zoe Johnson", studentId: "100238", grade: 9 },
+    { name: "Ethan Garcia", studentId: "100239", grade: 11 },
   ];
-  for (let i = 0; i < studentNames.length; i++) {
+  for (let i = 0; i < studentInfo.length; i++) {
+    const info = studentInfo[i];
     const student = await db.user.upsert({
       where: { email: `student${i + 1}@davincischools.org` },
       update: {},
       create: {
         email: `student${i + 1}@davincischools.org`,
-        name: studentNames[i],
+        name: info.name,
         role: "STUDENT",
+        studentId: info.studentId,
+        grade: info.grade,
       },
     });
     students.push(student);

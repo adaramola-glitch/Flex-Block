@@ -35,6 +35,11 @@ model User {
   role      Role     @default(STUDENT)
   createdAt DateTime @default(now())
 
+  // Student directory info (meaningful only for STUDENT accounts; set by an
+  // admin from the People page — nothing populates these automatically).
+  studentId String? @unique
+  grade     Int?
+
   // Sessions this user hosts (only meaningful for TEACHER/ADMIN accounts)
   hostedSessions FlexSession[] @relation("SessionHost")
 

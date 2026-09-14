@@ -86,7 +86,7 @@ export default async function StudentPage({
             href={`/student?date=${date}`}
             className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
               date === selectedDate
-                ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
+                ? "bg-purple-700 text-white"
                 : "bg-white text-slate-600 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
             }`}
           >
@@ -106,7 +106,7 @@ export default async function StudentPage({
             const blockedByOtherBooking = Boolean(myBooking) && !isMine;
 
             return (
-              <Card key={flexSession.id} className={isMine ? "ring-2 ring-blue-500" : ""}>
+              <Card key={flexSession.id} className={isMine ? "ring-2 ring-purple-500" : ""}>
                 <div className="mb-2 flex items-start justify-between gap-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-100">
                     {flexSession.title}

@@ -14,8 +14,9 @@ export default async function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-slate-950">
       <div className="w-full max-w-sm space-y-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <div className="space-y-1 text-center">
+          <div className="mx-auto mb-2 h-2.5 w-2.5 rounded-full bg-purple-700" />
           <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
-            Flex Block
+            DVC Flex Block
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Sign in with your Da Vinci Schools account

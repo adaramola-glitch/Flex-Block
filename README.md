@@ -1,4 +1,4 @@
-# Flex Block
+# DVC Flex Block
 
 A scheduling app for Da Vinci Schools' Flex Block, replacing Edficiency and
 SmartPass. Teachers post sessions, students browse and book their own spot,

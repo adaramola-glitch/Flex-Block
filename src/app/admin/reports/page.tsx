@@ -58,7 +58,7 @@ export default async function ReportsPage({
           </button>
           <a
             href={`/api/admin/reports?from=${from}&to=${to}`}
-            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900"
+            className="rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-600"
           >
             Download CSV
           </a>
